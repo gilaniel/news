@@ -1,0 +1,25 @@
+{{#grouped_each 1 list}}
+    <div class="columns">
+    {{#each this }}
+        <div class="column is-full" id="news-{{id}}">
+          <div class="card">
+            
+            <div class="card-content">
+              <div class="media">
+                
+                <div class="media-content">
+                  <p class="title is-size-4"><a href="/news/{{url}}" class="has-text-dark fs-bold">{{title}}</a></p>
+                  
+                </div>
+              </div>
+
+              <div class="content">
+                {{description}}
+                <div datetime="2016-1-1">11:09 PM - 1 Jan 2016</div>
+              </div>
+            </div>
+          </div>
+        </div>
+    {{/each}}
+    </div>
+{{/grouped_each}}

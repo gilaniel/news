@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1>GNEWS</h1>
+  <div class="news">
+
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    function getTmp(news) {
+      return `<div class="news-item" id="news-${news.id}">
+                <div><a href="${news.link}">${news.title}</a></div>
+                <div>${news.description}</div>
+              </div>`;
+    }
+
+    $.get('http://151.248.115.205:3000/api/news_list').then(function(news){
+      news.forEach(function(item) {
+        $('.news').append(getTmp(item));
+      });
+    });
+  </script>
+</body>
+</html>
