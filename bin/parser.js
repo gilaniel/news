@@ -11,13 +11,15 @@ const db = mysql.createConnection({
   database : 'news'
 });
 
+const CATEGORIES = ['main', 'auto', 'games'];
+
 // db.connect();
 
-['https://lenta.ru/rss/news', 'https://news.yandex.ru/auto.rss', 'https://news.yandex.ru/games.rss'].forEach((item) => {
-  parse(item);
+['https://lenta.ru/rss/news', 'https://news.yandex.ru/auto.rss', 'https://news.yandex.ru/games.rss'].forEach((item, idx) => {
+  parse(item, CATEGORIES[idx]);
 });
 
-function parse(url) {
+function parse(url, category) {
   (async () => {
       let feed = await parser.parseURL(url);
      
@@ -26,7 +28,7 @@ function parse(url) {
         const desc = encodeURIComponent(item.content.replace(/&amp;#39;/g, '\''));
         const url = encodeURIComponent(Helpers.translite(item.title.toLowerCase()));
 
-        db.query(`INSERT INTO news ( id, title, link, description, url ) VALUES ( null, '${decodeURIComponent(title)}', '${item.link}', '${decodeURIComponent(desc)}', '${decodeURIComponent(url)}' );`, function (error) {
+        db.query(`INSERT INTO news ( id, title, link, description, url ) VALUES ( null, '${decodeURIComponent(title)}', '${item.link}', '${decodeURIComponent(desc)}', '${decodeURIComponent(url)}', '${category}' );`, function (error) {
           if (error) throw error;
         });
 
