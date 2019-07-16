@@ -27,6 +27,7 @@ function parse(url, category) {
         const title = encodeURIComponent(item.title);
         const desc = encodeURIComponent(item.content.replace(/&amp;#39;/g, '\''));
         const url = encodeURIComponent(Helpers.translite(item.title.toLowerCase()));
+        console.log(category);
 
         db.query(`INSERT INTO news ( id, title, link, description, url, category ) VALUES ( null, '${decodeURIComponent(title)}', '${item.link}', '${decodeURIComponent(desc)}', '${decodeURIComponent(url)}', '${category}' );`, function (error) {
           if (error) throw error;
